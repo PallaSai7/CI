@@ -15,6 +15,7 @@ jobs:
 
       - name: Transfer the File
         uses: appleboy/scp-action@master
+        uses: ./
         with:
           host: ${{secrets.SSH_HOST}}
           username: ${{secrets.SSH_USERNAME}}
