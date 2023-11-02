@@ -16,8 +16,8 @@ jobs:
       - name: Transfer the File
         uses: ./
         with:
-          host: ${{secrets.SSH_HOST}}
-          username: ${{secrets.SSH_USERNAME}}
-          key: ${{secrets.SSH_PRIVATEKEY}}
+          host: ${{secrets.HOST}}
+          username: ${{secrets.SSH_USER}}
+          key: ${{secrets.PRIVATE_KEY}}
           source: https://github.com/PallaSai7/CI/blob/main/Sample/
           target: /c/Users/SAI KRISHNA/.ssh/Local
