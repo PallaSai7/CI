@@ -1,23 +1,19 @@
-name: Transfer Files to Local Server
-
-on:
-  push:
-    branches:
-      - main
-
+name: scp files
+on: [push]
 jobs:
-  transfer:
+
+  testing:
+    name: Checking File Transfer
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: checkout
+      uses: actions/checkout@v3
 
-      - name: Transfer the File
-        uses: ./
-        with:
-          host: ${{secrets.HOST}}
-          username: ${{secrets.SSH_USER}}
-          key: ${{secrets.PRIVATE_KEY}}
-          source: https://github.com/PallaSai7/CI/blob/main/Sample/
-          target: /c/Users/SAI KRISHNA/.ssh/Local
+    - name: copy file via ssh key
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        source: "tests/a.txt,tests/b.txt"
+        target: "test"
