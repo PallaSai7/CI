@@ -1,0 +1,24 @@
+name: Transfer Files to Local Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Transfer the File
+        uses: appleboy/scp-action@master
+        with:
+          direction: download
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          key: ${{secrets.SSH_PRIVATEKEY}}
+          source: CI/blob/main/Sample/test1.txt
+          target: Local/
