@@ -20,3 +20,6 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           eval "$(ssh-agent -s)"
+          
+      - name: Deploy File
+        run: scp -r ${{ github.workspace }}/Sample/test1.txt ec2-user@65.0.29.214:/home/ec2-user/Oraclepoc
