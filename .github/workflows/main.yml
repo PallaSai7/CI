@@ -16,4 +16,7 @@ jobs:
       - name: Install SSH key
         run:
           rm -rf .ssh/
+          cd ~
+          pwd
+          ls -lah
          
