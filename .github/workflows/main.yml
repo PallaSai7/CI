@@ -1,4 +1,4 @@
-name: Deploy to Server 
+name: Deploy to Server
 
 on:
   push:
@@ -21,6 +21,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           eval "$(ssh-agent -s)"
           ssh-keyscan -t rsa ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-          
+          cat ~/.ssh/known_hosts
+
       - name: Deploy File
-        run: scp -r ${{ github.workspace }}/Sample/test1.txt ec2-user@65.0.29.214:/home/ec2-user/Oraclepoc
+        run: scp -r ${{ github.workspace }}/Sample/test1.txt ec2-user@${{ secrets.SERVER_HOST }}:/home/ec2-user/Oraclepoc
