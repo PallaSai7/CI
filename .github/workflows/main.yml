@@ -19,9 +19,8 @@ jobs:
           echo "SSH Directory: $HOME/.ssh"
           echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          pwd
-          ls -lah
-          ping 172.31.37.189
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
 
-
-      
+      - name: Deploy File
+        run: scp -o StrictHostKeyChecking=no -i ${{ secrets.PRIVATE_KEY }} -r ${{ github.workspace }}/Sample/test1.txt ec2-user@${{ secrets.SERVER_HOST }}:/home/ec2-user/Oraclepoc
