@@ -19,7 +19,8 @@ jobs:
           echo "SSH Directory: $HOME/.ssh"
           echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          cat ~/.ssh/known_hosts
+          pwd
+          ls -lah
           ping 172.31.37.189
 
 
