@@ -23,4 +23,4 @@ jobs:
           ssh-add ~/.ssh/id_rsa
 
       - name: Deploy File
-        run: scp -o StrictHostKeyChecking=no -i ${{ secrets.PRIVATE_KEY }} -r ${{ github.workspace }}/Sample/test1.txt ec2-user@${{ secrets.SERVER_HOST }}:/home/ec2-user/Oraclepoc
+        run: scp -i ${{ secrets.PRIVATE_KEY }} -r ${{ github.workspace }}/Sample/test1.txt ec2-user@${{ secrets.SERVER_HOST }}:/home/ec2-user/Oraclepoc
