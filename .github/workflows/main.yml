@@ -1,19 +1,30 @@
-name: Deploy to Server
+name: Create Release Branch and Tag 
 
 on:
-  push:
-    branches:
-      - main
+  deployment_status:
+    types:
+      - success
 
 jobs:
-  deploy:
+  create_release_branch:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Install SSH key
-        run:
-           ls -lah
-         
+    - name: Create Release Branch and Tag
+      run: |
+        # Get the SHA of the commit that triggered the deployment
+        DEPLOYED_SHA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/deployments/${{ github.event.deployment.id }}" | jq -r .sha)
+
+        # Create a new branch based on the main branch
+        git checkout -b release-$(date +'%Y%m%d%H%M%S') main
+
+        # Tag the release branch with the deployment SHA
+        git tag -a release-$(date +'%Y%m%d%H%M%S') -m "Release $(date +'%Y%m%d%H%M%S')" $DEPLOYED_SHA
+
+        # Push the new branch and tag to the repository
+        git push origin release-$(date +'%Y%m%d%H%M%S') --follow-tags
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
