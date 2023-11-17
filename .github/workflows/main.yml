@@ -1,4 +1,4 @@
-name: Create Release Branch and Tag 
+name: Create Release Branch and Tag    
 
 on:
   deployment_status:
